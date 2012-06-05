@@ -1,7 +1,5 @@
 body > header {
-  background: image-url("headerbg.jpg") left -50px no-repeat;
-  background-color: $header-bg;
-  text-shadow: 1px 0 0 #333, 0 1px 0 #333, 0 -1px 0 #000, -1px 0 0 #000;
+  background: $header-bg;
   h1 {
     display: inline-block;
     margin: 0;

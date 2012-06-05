@@ -1,2 +1,7 @@
 // This File is imported last, and will override other styles in the cascade
 // Add styles here to make changes without digging in too much
+body > header {
+    background: image-url("headerbg.jpg") left -50px no-repeat;
+    background-color: $header-bg;
+    text-shadow: 1px 0 0 #333, 0 1px 0 #333, 0 -1px 0 #000, -1px 0 0 #000;
+}
