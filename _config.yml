@@ -18,6 +18,7 @@ date_format: "ordinal"
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
 subscribe_rss: /atom.xml
 subscribe_email:
+category_feeds: false
 # RSS feeds can list your email address if you like
 email:
 
@@ -40,6 +41,13 @@ paginate: 10          # Posts per page on the blog index
 pagination_dir: blog  # Directory base for pagination URLs eg. /blog/page/2/
 recent_posts: 5       # Posts in the sidebar Recent Posts section
 excerpt_link: "Read on &rarr;"  # "Continue reading" link text at the bottom of excerpted articles
+excerpt_in_feed: false # Truncate excerpted articles in the atom feed
+permalink_label: "Permalink"
+permalink_label_feed: "&#9875; Permalink"
+linklog_marker: "&rarr;"
+linklog_marker_position: after
+linklog_marker_position_feed: after
+standard_post_marker:
 
 titlecase: true       # Converts page and post titles to titlecase
 
@@ -56,6 +64,9 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/twitter.ht
 # ----------------------- #
 #   3rd Party Settings    #
 # ----------------------- #
+
+# Use text links instead of Javascript widgets for Twitter, Facebook and Google Plus
+do_not_track: false
 
 # Github repositories
 github_user:
@@ -91,6 +102,7 @@ delicious_count: 3
 # Disqus Comments
 disqus_short_name: iano
 disqus_show_comment_count: true
+disqus_developer: 0
 
 # Google Analytics
 google_analytics_tracking_id: UA-703860-1

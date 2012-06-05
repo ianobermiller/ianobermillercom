@@ -1,14 +1,14 @@
 function getNav() {
-  var mobileNav = $('nav[role=navigation] fieldset[role=search]').after('<fieldset class="mobile-nav"></fieldset>').next().append('<select></select>');
-  mobileNav.children('select').append('<option value="">Navigate&hellip;</option>');
-  $('ul[role=main-navigation]').addClass('main-navigation');
-  $('ul.main-navigation a').each(function(link) {
-    mobileNav.children('select').append('<option value="'+link.href+'">&raquo; '+link.text+'</option>');
+  var mainNav = $('ul.main-navigation, ul[role=main-navigation]').before('<fieldset class="mobile-nav">')
+  var mobileNav = $('fieldset.mobile-nav').append('<select>');
+  mobileNav.find('select').append('<option value="">Navigate&hellip;</option>');
+  mainNav.find('a').each(function() {
+    mobileNav.find('select').append('<option value="'+this.href+'">&raquo; '+this.text+'</option>');
   });
-  $('ul.subscription a').each(function(link) {
-    mobileNav.children('select').append('<option value="'+link.href+'">&raquo; '+link.text+'</option>');
+  $('ul.subscription a').each(function() {
+    mobileNav.find('select').append('<option value="'+this.href+'">&raquo; '+this.text+'</option>');
   });
-  mobileNav.children('select').bind('change', function(event) {
+  mobileNav.find('select').bind('change', function(event) {
     if (event.target.value) { window.location.href = event.target.value; }
   });
 }
@@ -25,48 +25,32 @@ function addSidebarToggler() {
       }
     });
   }
-  var sections = $('aside.sidebar > section');
+  var sections = $('.sidebar section');
   if (sections.length > 1) {
-    sections.each(function(section, index){
+    sections.each(function(index){
       if ((sections.length >= 3) && index % 3 === 0) {
-        $(section).addClass("first");
+        $(this).addClass("first");
       }
       var count = ((index +1) % 2) ? "odd" : "even";
-      $(section).addClass(count);
+      $(this).addClass(count);
     });
   }
   if (sections.length >= 3){ $('aside.sidebar').addClass('thirds'); }
 }
 
-function testFeatures() {
-  var features = ['maskImage'];
-  $(features).map(function(feature) {
-    if (Modernizr.testAllProps(feature)) {
-      $('html').addClass(feature);
-    } else {
-      $('html').addClass('no-'+feature);
-    }
-  });
-  if ("placeholder" in document.createElement("input")) {
-    $('html').addClass('placeholder');
-  } else {
-    $('html').addClass('no-placeholder');
-  }
-}
-
 function addCodeLineNumbers() {
   if (navigator.appName === 'Microsoft Internet Explorer') { return; }
-  $('div.gist-highlight').each(function(code) {
+  $('div.gist-highlight').each(function(index) {
     var tableStart = '<table><tbody><tr><td class="gutter">',
         lineNumbers = '<pre class="line-numbers">',
         tableMiddle = '</pre></td><td class="code">',
         tableEnd = '</td></tr></tbody></table>',
-        count = $('.line', code).length;
+        count = $('.line', this).length;
     for (var i=1;i<=count; i++) {
       lineNumbers += '<span class="line-number">'+i+'</span>\n';
     }
-    var table = tableStart + lineNumbers + tableMiddle + '<pre>'+$('pre', code).html()+'</pre>' + tableEnd;
-    $(code).html(table);
+    var table = tableStart + lineNumbers + tableMiddle + '<pre>'+$('pre', this).html()+'</pre>' + tableEnd;
+    $(this).html(table);
   });
 }
 
@@ -116,8 +100,7 @@ function renderDeliciousLinks(items) {
   $('#delicious').html(output);
 }
 
-$.domReady(function() {
-  testFeatures();
+$(document).ready(function() {
   wrapFlashVideos();
   flashVideoFallback();
   addCodeLineNumbers();
