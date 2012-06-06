@@ -1,11 +1,13 @@
 function getNav() {
   var mainNav = $('ul.main-navigation, ul[role=main-navigation]').before('<fieldset class="mobile-nav">')
-  var mobileNavSelect = $('fieldset.mobile-nav').append('<select>').find('select');
-  mobileNavSelect.append('<option value="">Navigate&hellip;</option>');
-  mainNav.find('a').add('ul.subscription a').each(function() {
-    mobileNavSelect.append('<option value="' + this.href + '">&raquo; ' + this.innerText + '</option>');
-  });
-  mobileNavSelect.bind('change', function(event) {
+  var mobileNav = $('fieldset.mobile-nav').append('<select>');
+  mobileNav.find('select').append('<option value="">Navigate&hellip;</option>');
+  var addOption = function() {
+    mobileNav.find('select').append('<option value="' + this.href + '">&raquo; ' + $(this).text() + '</option>');
+  }
+  mainNav.find('a').each(addOption);
+  $('ul.subscription a').each(addOption);
+  mobileNav.find('select').bind('change', function(event) {
     if (event.target.value) { window.location.href = event.target.value; }
   });
 }
